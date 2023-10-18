@@ -1,10 +1,10 @@
 # Common-component
 
-Общие компоненты для микросервисов, работа с логами, метрики, конфигурироавние и общие компоненты работы со стораджами #mongo#metric#lib#library#go#log#basic#common#general#
+Common components for microservices, handling logs, metrics, configuration, and common components for working with storage. #mongo#metric#lib#library#go#log#basic#common#general#
 
-## TOC
+## Table of Contents
 - [Common-component](#-common-component)
-  - [TOC](#-toc)
+  - [Table of Contents](#-table-of-contents)
   - [Description](#-description)
   - [Tests](#-tests)
   - [Links](#-links)
@@ -12,7 +12,7 @@
 
 ## Description
 
-Общие компоненты для микросервисов, работа с логами, метрики, конфигурироавние и общие компоненты работы со стораджами
+Common components for microservices, handling logs, metrics, configuration, and common components for working with storage.
 
 * metrics
 * mongo
@@ -24,6 +24,8 @@ go test ./... -short
 ```
 
 ## Links
+
+* No
 ## License
 
-[Default license](LICENSE)
+[Default License](LICENSE)
