@@ -4,8 +4,8 @@ import (
 	"context"
 	"sync"
 
-	"github.com/pkg/errors"
 	"github.com/atomyze-foundation/common-component/testshlp"
+	"github.com/pkg/errors"
 )
 
 type stubStorage struct {

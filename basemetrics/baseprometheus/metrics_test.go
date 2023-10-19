@@ -6,8 +6,8 @@ import (
 	"sync"
 	"testing"
 
-	"github.com/stretchr/testify/require"
 	"github.com/atomyze-foundation/common-component/testshlp"
+	"github.com/stretchr/testify/require"
 )
 
 func TestCreateMetrics(t *testing.T) {

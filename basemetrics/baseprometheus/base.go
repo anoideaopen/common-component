@@ -1,8 +1,8 @@
 package baseprometheus
 
 import (
-	"github.com/newity/glog"
 	"github.com/atomyze-foundation/common-component/basemetrics"
+	"github.com/newity/glog"
 )
 
 type baseMetric struct {

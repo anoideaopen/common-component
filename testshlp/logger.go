@@ -4,9 +4,9 @@ import (
 	"context"
 	"testing"
 
+	"github.com/atomyze-foundation/common-component/loggerhlp"
 	"github.com/newity/glog"
 	"github.com/stretchr/testify/require"
-	"github.com/atomyze-foundation/common-component/loggerhlp"
 )
 
 func CreateCtxLogger(t *testing.T) (context.Context, glog.Logger) {

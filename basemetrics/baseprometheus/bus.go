@@ -4,8 +4,8 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/newity/glog"
 	"github.com/atomyze-foundation/common-component/basemetrics"
+	"github.com/newity/glog"
 )
 
 type createChildMetric[TMetricsBus any] func(childBus, parentBus *TMetricsBus, labels []basemetrics.Label)

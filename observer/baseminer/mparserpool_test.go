@@ -4,9 +4,9 @@ import (
 	"context"
 	"testing"
 
+	"github.com/atomyze-foundation/common-component/testshlp"
 	"github.com/pkg/errors"
 	"github.com/stretchr/testify/require"
-	"github.com/atomyze-foundation/common-component/testshlp"
 )
 
 func TestParserPoolStartStop(t *testing.T) {

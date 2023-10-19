@@ -5,8 +5,8 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/stretchr/testify/require"
 	"github.com/atomyze-foundation/common-component/testshlp"
+	"github.com/stretchr/testify/require"
 )
 
 func TestHandlerStartStop(t *testing.T) {

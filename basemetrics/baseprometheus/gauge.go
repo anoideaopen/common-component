@@ -1,10 +1,10 @@
 package baseprometheus
 
 import (
+	"github.com/atomyze-foundation/common-component/basemetrics"
 	"github.com/newity/glog"
 	"github.com/pkg/errors"
 	"github.com/prometheus/client_golang/prometheus"
-	"github.com/atomyze-foundation/common-component/basemetrics"
 )
 
 type Gauge struct {

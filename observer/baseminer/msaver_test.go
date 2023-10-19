@@ -6,9 +6,9 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/atomyze-foundation/common-component/testshlp"
 	"github.com/pkg/errors"
 	"github.com/stretchr/testify/require"
-	"github.com/atomyze-foundation/common-component/testshlp"
 )
 
 func TestSaverRunStop(t *testing.T) {
