@@ -4,7 +4,7 @@ go 1.18
 
 require (
 	github.com/joho/godotenv v1.4.0
-	github.com/newity/glog v1.0.0
+	github.com/newity/glog v0.1.1
 	github.com/pkg/errors v0.9.1
 	github.com/prometheus/client_golang v1.13.0
 	github.com/sirupsen/logrus v1.9.0
