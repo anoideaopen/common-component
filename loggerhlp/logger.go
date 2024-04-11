@@ -3,9 +3,9 @@ package loggerhlp
 import (
 	"log"
 
-	"github.com/newity/glog"
-	"github.com/newity/glog/logr"
-	"github.com/newity/glog/std"
+	"github.com/anoideaopen/glog"
+	"github.com/anoideaopen/glog/logr"
+	"github.com/anoideaopen/glog/std"
 	"github.com/pkg/errors"
 	"github.com/sirupsen/logrus"
 )

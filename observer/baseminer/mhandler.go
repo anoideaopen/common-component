@@ -3,7 +3,7 @@ package baseminer
 import (
 	"context"
 
-	"github.com/newity/glog"
+	"github.com/anoideaopen/glog"
 	"golang.org/x/sync/errgroup"
 )
 
