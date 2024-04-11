@@ -5,7 +5,7 @@ import (
 	"testing"
 
 	"github.com/anoideaopen/common-component/loggerhlp"
-	"github.com/newity/glog"
+	"github.com/anoideaopen/glog"
 	"github.com/stretchr/testify/require"
 )
 

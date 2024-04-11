@@ -5,7 +5,7 @@ import (
 	"fmt"
 
 	"github.com/anoideaopen/common-component/basemetrics"
-	"github.com/newity/glog"
+	"github.com/anoideaopen/glog"
 )
 
 type createChildMetric[TMetricsBus any] func(childBus, parentBus *TMetricsBus, labels []basemetrics.Label)

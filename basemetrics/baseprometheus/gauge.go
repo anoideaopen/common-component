@@ -2,7 +2,7 @@ package baseprometheus
 
 import (
 	"github.com/anoideaopen/common-component/basemetrics"
-	"github.com/newity/glog"
+	"github.com/anoideaopen/glog"
 	"github.com/pkg/errors"
 	"github.com/prometheus/client_golang/prometheus"
 )

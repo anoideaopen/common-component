@@ -2,7 +2,7 @@ package baseprometheus
 
 import (
 	"github.com/anoideaopen/common-component/basemetrics"
-	"github.com/newity/glog"
+	"github.com/anoideaopen/glog"
 )
 
 type baseMetric struct {
