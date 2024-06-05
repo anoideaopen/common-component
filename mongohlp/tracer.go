@@ -5,8 +5,6 @@ import (
 	"fmt"
 	"strconv"
 	"strings"
-
-	"github.com/pkg/errors"
 )
 
 const (
@@ -30,7 +28,7 @@ type aggregateCmd struct {
 func TraceMongoCmd(rawCmd string) (string, error) {
 	var cmd map[string]interface{}
 	if err := json.Unmarshal([]byte(rawCmd), &cmd); err != nil {
-		return "", errors.Wrap(err, "error unmarshal cmd")
+		return "", fmt.Errorf("error unmarshal cmd: %w", err)
 	}
 
 	if _, ok := cmd[findCmdName]; ok {
@@ -47,7 +45,7 @@ func TraceMongoCmd(rawCmd string) (string, error) {
 func traceAggregateCmd(rawCmd string) (string, error) {
 	var cmd aggregateCmd
 	if err := json.Unmarshal([]byte(rawCmd), &cmd); err != nil {
-		return "", errors.Wrap(err, "error unmarshal aggregateCmd")
+		return "", fmt.Errorf("error unmarshal aggregateCmd: %w", err)
 	}
 
 	var err error
@@ -60,7 +58,7 @@ func traceAggregateCmd(rawCmd string) (string, error) {
 
 	b, err := json.Marshal(cmd.Pipeline)
 	if err != nil {
-		return "", errors.Wrap(err, "error unmarshal pipeline")
+		return "", fmt.Errorf("error unmarshal pipeline: %w", err)
 	}
 
 	sb := &strings.Builder{}
@@ -76,7 +74,7 @@ func traceAggregateCmd(rawCmd string) (string, error) {
 func traceFindCmd(rawCmd string) (string, error) {
 	var cmd findCmd
 	if err := json.Unmarshal([]byte(rawCmd), &cmd); err != nil {
-		return "", errors.Wrap(err, "error unmarshal findCmd")
+		return "", fmt.Errorf("error unmarshal findCmd: %w", err)
 	}
 	filterStr := "{}"
 	if cmd.Filter != nil {
@@ -86,7 +84,7 @@ func traceFindCmd(rawCmd string) (string, error) {
 		}
 		b, err := json.Marshal(o)
 		if err != nil {
-			return "", errors.Wrap(err, "error marshal filter object")
+			return "", fmt.Errorf("error marshal filter object: %w", err)
 		}
 		filterStr = string(b)
 	}
@@ -100,7 +98,7 @@ func traceFindCmd(rawCmd string) (string, error) {
 		if sort != nil {
 			b, err := json.Marshal(sort)
 			if err != nil {
-				return "", errors.Wrap(err, "error marshal sort object")
+				return "", fmt.Errorf("error marshal sort object: %w", err)
 			}
 			sortStr = fmt.Sprintf(".sort( %s )", string(b))
 		}
@@ -139,7 +137,7 @@ func tryToAsNumber(obj map[string]interface{}) (float64, bool, error) {
 				const float64BitSize = 64
 				f, err := strconv.ParseFloat(s, float64BitSize)
 				if err != nil {
-					return 0, false, errors.Wrap(err, "error parse num")
+					return 0, false, fmt.Errorf("error parse num: %w", err)
 				}
 				return f, true, nil
 			}

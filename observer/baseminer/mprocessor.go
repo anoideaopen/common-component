@@ -2,8 +2,7 @@ package baseminer
 
 import (
 	"context"
-
-	"github.com/pkg/errors"
+	"errors"
 )
 
 var (
@@ -24,11 +23,11 @@ func runProcessor[TSrcData any, TPreSaverData any](ctx context.Context,
 			return ctx.Err()
 		case srcData, ok := <-src:
 			if !ok {
-				return errors.WithStack(ErrSrcDataClosed)
+				return ErrSrcDataClosed
 			}
 
 			if srcData == nil {
-				return errors.WithStack(ErrSrcDataIsNil)
+				return ErrSrcDataIsNil
 			}
 
 			if err := queueToProcess(ctx, srcData, parserTasks, saverTasks); err != nil {

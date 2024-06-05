@@ -2,10 +2,10 @@ package baseminer
 
 import (
 	"context"
+	"errors"
 	"testing"
 
 	"github.com/anoideaopen/common-component/testshlp"
-	"github.com/pkg/errors"
 	"github.com/stretchr/testify/require"
 )
 

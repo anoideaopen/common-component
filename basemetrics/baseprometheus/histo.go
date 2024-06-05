@@ -3,7 +3,6 @@ package baseprometheus
 import (
 	"github.com/anoideaopen/common-component/basemetrics"
 	"github.com/anoideaopen/glog"
-	"github.com/pkg/errors"
 	"github.com/prometheus/client_golang/prometheus"
 )
 
@@ -45,7 +44,7 @@ func newHisto(l glog.Logger, name, description string, buckets []float64, labels
 	}, bm.labels)
 
 	if err := prometheus.Register(promObj); err != nil {
-		return nil, errors.WithStack(err)
+		return nil, err
 	}
 
 	l.Infof("%s histo created", name)

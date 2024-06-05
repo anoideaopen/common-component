@@ -2,10 +2,9 @@
 package errorshlp
 
 import (
+	"errors"
 	"fmt"
 	"io"
-
-	"github.com/pkg/errors"
 )
 
 type (
