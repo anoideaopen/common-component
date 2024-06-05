@@ -3,7 +3,6 @@ package baseprometheus
 import (
 	"github.com/anoideaopen/common-component/basemetrics"
 	"github.com/anoideaopen/glog"
-	"github.com/pkg/errors"
 	"github.com/prometheus/client_golang/prometheus"
 )
 
@@ -55,7 +54,7 @@ func newCounter(l glog.Logger, name, description string, labels []basemetrics.La
 	}, bm.labels)
 
 	if err := prometheus.Register(promObj); err != nil {
-		return nil, errors.WithStack(err)
+		return nil, err
 	}
 
 	l.Infof("%s counter created", name)

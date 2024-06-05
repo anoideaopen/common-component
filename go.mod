@@ -1,11 +1,10 @@
 module github.com/anoideaopen/common-component
 
-go 1.18
+go 1.22.4
 
 require (
-	github.com/anoideaopen/glog v0.0.2
+	github.com/anoideaopen/glog v0.0.3
 	github.com/joho/godotenv v1.4.0
-	github.com/pkg/errors v0.9.1
 	github.com/prometheus/client_golang v1.13.1
 	github.com/sirupsen/logrus v1.9.0
 	github.com/stretchr/testify v1.8.0

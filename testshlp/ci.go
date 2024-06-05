@@ -1,11 +1,11 @@
 package testshlp
 
 import (
+	"fmt"
 	"os"
 	"strings"
 
 	"github.com/joho/godotenv"
-	"github.com/pkg/errors"
 )
 
 // EnvVar is a type for environment variables
@@ -18,7 +18,7 @@ type EnvVar struct {
 // SetEnvFromFile sets environment variables from file
 func SetEnvFromFile(envPath string) error {
 	if err := godotenv.Overload(envPath); err != nil {
-		return errors.Wrap(errors.WithStack(err), "load env file error")
+		return fmt.Errorf("load env file error: %w", err)
 	}
 
 	return nil

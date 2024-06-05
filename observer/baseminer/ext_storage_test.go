@@ -2,10 +2,10 @@ package baseminer
 
 import (
 	"context"
+	"errors"
 	"sync"
 
 	"github.com/anoideaopen/common-component/testshlp"
-	"github.com/pkg/errors"
 )
 
 type stubStorage struct {

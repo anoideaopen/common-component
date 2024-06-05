@@ -2,8 +2,8 @@ package baseminer
 
 import (
 	"context"
+	"errors"
 
-	"github.com/pkg/errors"
 	"golang.org/x/sync/errgroup"
 )
 
@@ -59,7 +59,7 @@ func poolTasksResults[TPreSaverData any](ctx context.Context,
 			return ctx.Err()
 		}
 	}
-	return errors.WithStack(ctx.Err())
+	return ctx.Err()
 }
 
 func saveLoop[TCheckPoint any, TPreSaverData any, TSaverData any](ctx context.Context,
@@ -102,7 +102,7 @@ func saveLoop[TCheckPoint any, TPreSaverData any, TSaverData any](ctx context.Co
 		}
 	}
 
-	return errors.WithStack(ctx.Err())
+	return ctx.Err()
 }
 
 func getBatchForSave[TPreSaverData any](ctx context.Context,
@@ -117,7 +117,7 @@ func getBatchForSave[TPreSaverData any](ctx context.Context,
 			select {
 			case res = <-results:
 			case <-ctx.Done():
-				return nil, errors.WithStack(ctx.Err())
+				return nil, ctx.Err()
 			}
 		} else {
 			select {

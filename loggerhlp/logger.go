@@ -1,12 +1,13 @@
 package loggerhlp
 
 import (
+	"errors"
+	"fmt"
 	"log"
 
 	"github.com/anoideaopen/glog"
 	"github.com/anoideaopen/glog/logr"
 	"github.com/anoideaopen/glog/std"
-	"github.com/pkg/errors"
 	"github.com/sirupsen/logrus"
 )
 
@@ -30,8 +31,7 @@ func CreateLogger(loggerType, logLvl string) (glog.Logger, error) {
 
 	default:
 		return nil,
-			errors.WithStack(
-				errors.Errorf("failed to create logger: unknown type %s", loggerType))
+			errors.New("failed to create logger: unknown type " + loggerType)
 	}
 }
 
@@ -49,10 +49,7 @@ func createStdLogger(logLvl string) (glog.Logger, error) {
 	case "error":
 		ll = std.LevelError
 	default:
-		return nil, errors.WithStack(errors.Errorf(
-			"failed to create logger: unknown log level %s",
-			logLvl,
-		))
+		return nil, errors.New("failed to create logger: unknown log level " + logLvl)
 	}
 
 	return std.New(log.Default(), ll), nil
@@ -62,8 +59,7 @@ func createLrLogger(loggerType, logLvl string) (glog.Logger, error) {
 	ll, err := logrus.ParseLevel(logLvl)
 	if err != nil {
 		return nil,
-			errors.WithStack(
-				errors.Wrap(err, "failed to create logger"))
+			fmt.Errorf("failed to create logger: %w", err)
 	}
 
 	lrLogger := logrus.StandardLogger()

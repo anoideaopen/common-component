@@ -2,8 +2,8 @@ package baseminer
 
 import (
 	"context"
+	"errors"
 
-	"github.com/pkg/errors"
 	"golang.org/x/sync/errgroup"
 )
 
@@ -22,7 +22,7 @@ func runParserPool[TSrcData any, TPreSaverData any](
 ) error {
 	eg, ctxEg := errgroup.WithContext(ctx)
 
-	for i := uint(0); i < countWorkers; i++ {
+	for range countWorkers {
 		eg.Go(func() error {
 			return parserWorker(ctxEg, prsr, tasks)
 		})
@@ -45,10 +45,10 @@ func parserWorker[TSrcData any, TPreSaverData any](
 			return ctx.Err()
 		case task, ok := <-tasksL:
 			if !ok {
-				return errors.WithStack(ErrParserTasksWasClosed)
+				return ErrParserTasksWasClosed
 			}
 			if task == nil {
-				return errors.WithStack(ErrNilTask)
+				return ErrNilTask
 			}
 			d, err := prsr.Parse(ctx, task.srcData)
 			res = &parseResult[TPreSaverData]{
