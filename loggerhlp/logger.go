@@ -17,6 +17,9 @@ const (
 	logTypeLRTxtDev  = "lr-txt-dev"
 	logTypeLRJson    = "lr-json"
 	logTypeLRJsonDev = "lr-json-dev"
+	// logTypeGCP is build especially for Google Cloud Engine Logs
+	// log in json, 'level' field named 'severity'.
+	logTypeGCP = "gcp"
 )
 
 // CreateLogger creates logger
@@ -26,7 +29,7 @@ func CreateLogger(loggerType, logLvl string) (glog.Logger, error) {
 		return createStdLogger(logLvl)
 
 	case logTypeLRTxt, logTypeLRTxtDev,
-		logTypeLRJson, logTypeLRJsonDev:
+		logTypeLRJson, logTypeLRJsonDev, logTypeGCP:
 		return createLrLogger(loggerType, logLvl)
 
 	default:
@@ -79,6 +82,12 @@ func createLrLogger(loggerType, logLvl string) (glog.Logger, error) {
 	case logTypeLRJson, logTypeLRJsonDev:
 		lrFormatter = &logrus.JSONFormatter{
 			PrettyPrint: loggerType == logTypeLRJsonDev,
+		}
+	case logTypeGCP:
+		lrFormatter = &logrus.JSONFormatter{
+			FieldMap: logrus.FieldMap{
+				logrus.FieldKeyLevel: "severity",
+			},
 		}
 	}
 
