@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"log"
+	"time"
 
 	"github.com/anoideaopen/glog"
 	"github.com/anoideaopen/glog/logr"
@@ -75,16 +76,18 @@ func createLrLogger(loggerType, logLvl string) (glog.Logger, error) {
 			ForceColors:               loggerType == logTypeLRTxtDev,
 			DisableColors:             loggerType != logTypeLRTxtDev,
 			EnvironmentOverrideColors: false,
-			FullTimestamp:             true,
+			TimestampFormat:           time.RFC3339Nano,
 			PadLevelText:              loggerType == logTypeLRTxtDev,
 			QuoteEmptyFields:          false,
 		}
 	case logTypeLRJson, logTypeLRJsonDev:
 		lrFormatter = &logrus.JSONFormatter{
-			PrettyPrint: loggerType == logTypeLRJsonDev,
+			TimestampFormat: time.RFC3339Nano,
+			PrettyPrint:     loggerType == logTypeLRJsonDev,
 		}
 	case logTypeGCP:
 		lrFormatter = &logrus.JSONFormatter{
+			TimestampFormat: time.RFC3339Nano,
 			FieldMap: logrus.FieldMap{
 				logrus.FieldKeyLevel: "severity",
 			},
