@@ -1,6 +1,6 @@
 module github.com/anoideaopen/common-component
 
-go 1.23.4
+go 1.23.5
 
 require (
 	github.com/anoideaopen/glog v0.0.3
