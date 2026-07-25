@@ -79,8 +79,8 @@ func TestHandlerNormalWork(t *testing.T) {
 	require.Error(t, err)
 	require.ErrorIs(t, err, context.Canceled)
 
-	require.Equal(t, len(allSrcData), len(stor.data))
-	for i := 0; i < len(allSrcData); i++ {
+	require.Len(t, stor.data, len(allSrcData))
+	for i := range allSrcData {
 		require.Equal(t, allSrcData[i].num, stor.data[i].num)
 	}
 }
@@ -148,8 +148,8 @@ func TestHandlerWorkWithErrors(t *testing.T) {
 	}
 	require.ElementsMatch(t, expectedErrors, caughtErrors)
 
-	require.Equal(t, len(allSrcData), len(stor.data))
-	for i := 0; i < len(allSrcData); i++ {
+	require.Len(t, stor.data, len(allSrcData))
+	for i := range allSrcData {
 		require.Equal(t, allSrcData[i].num, stor.data[i].num)
 	}
 }
@@ -185,16 +185,16 @@ func TestHandlerWorkWithPermanentBadBlock(t *testing.T) {
 	require.NotNil(t, hndlr)
 
 	// run after error will produce same result
-	for i := 0; i < 2; i++ {
+	for range 2 {
 		err := hndlr.RunHandler(ctx)
 		require.ErrorIs(t, err, blErr)
-		require.Equal(t, errBlockNum, len(stor.data))
+		require.Len(t, stor.data, errBlockNum)
 	}
 }
 
 func createSrcData(firstNum int, count int) []*stubSrcData {
 	res := make([]*stubSrcData, 0, count)
-	for i := 0; i < count; i++ {
+	for i := range count {
 		res = append(res, &stubSrcData{num: firstNum + i})
 	}
 	return res

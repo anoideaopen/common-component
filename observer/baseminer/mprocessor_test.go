@@ -24,7 +24,7 @@ func TestProcessorNormalWork(t *testing.T) {
 	const srcDataCount = 2000
 
 	srcCh := make(chan *stubSrcData, srcDataCount)
-	for i := 0; i < srcDataCount; i++ {
+	for i := range srcDataCount {
 		srcCh <- &stubSrcData{num: i + 1}
 	}
 
@@ -89,8 +89,7 @@ func TestProcessorAfterCloseSrcDataErr(t *testing.T) {
 	parserTasks := make(chan *parserTask[stubSrcData, stubPreSaverData])
 	saverTasks := make(chan *saverTask[stubPreSaverData])
 
-	ctx, cancel := context.WithCancel(context.Background())
-	defer cancel()
+	ctx := t.Context()
 
 	runProcessorErr := make(chan error)
 	go func() {

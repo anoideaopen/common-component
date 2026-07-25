@@ -12,7 +12,7 @@ type CallHlp struct {
 }
 
 // AddErrMap adds error map
-func (ch *CallHlp) AddErrMap(fn interface{}, errMap map[int]error) {
+func (ch *CallHlp) AddErrMap(fn any, errMap map[int]error) {
 	if ch.callNums == nil {
 		ch.callNums = make(map[string]int)
 		ch.errorsMap = make(map[string]map[int]error)
@@ -24,7 +24,7 @@ func (ch *CallHlp) AddErrMap(fn interface{}, errMap map[int]error) {
 }
 
 // Call calls function
-func (ch *CallHlp) Call(fn interface{}) error {
+func (ch *CallHlp) Call(fn any) error {
 	fnName := getFunName(fn)
 
 	num, ok := ch.callNums[fnName]
@@ -40,7 +40,7 @@ func (ch *CallHlp) Call(fn interface{}) error {
 	return em[num]
 }
 
-func getFunName(i interface{}) string {
+func getFunName(i any) string {
 	if i == nil {
 		return ""
 	}
