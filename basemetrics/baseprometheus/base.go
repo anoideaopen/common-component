@@ -1,6 +1,8 @@
 package baseprometheus
 
 import (
+	"maps"
+
 	"github.com/anoideaopen/common-component/basemetrics"
 	"github.com/anoideaopen/glog"
 )
@@ -66,9 +68,7 @@ func (bm *baseMetric) mergeLabelsExt(labels []basemetrics.Label, warnIfNotExists
 		}
 		if res == nil {
 			res = make(map[string]string)
-			for k, v := range bm.contextLabels {
-				res[k] = v
-			}
+			maps.Copy(res, bm.contextLabels)
 		}
 
 		res[string(l.Name)] = l.Value

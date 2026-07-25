@@ -13,20 +13,20 @@ const (
 )
 
 type findCmd struct {
-	Find   string                 `json:"find"`
-	Filter map[string]interface{} `json:"filter"`
-	Limit  map[string]interface{} `json:"limit"`
-	Sort   map[string]interface{} `json:"sort"`
+	Find   string         `json:"find"`
+	Filter map[string]any `json:"filter"`
+	Limit  map[string]any `json:"limit"`
+	Sort   map[string]any `json:"sort"`
 }
 
 type aggregateCmd struct {
-	Aggregate string        `json:"aggregate"`
-	Pipeline  []interface{} `json:"pipeline"`
+	Aggregate string `json:"aggregate"`
+	Pipeline  []any  `json:"pipeline"`
 }
 
 // TraceMongoCmd traces mongo command
 func TraceMongoCmd(rawCmd string) (string, error) {
-	var cmd map[string]interface{}
+	var cmd map[string]any
 	if err := json.Unmarshal([]byte(rawCmd), &cmd); err != nil {
 		return "", fmt.Errorf("error unmarshal cmd: %w", err)
 	}
@@ -127,7 +127,7 @@ func traceFindCmd(rawCmd string) (string, error) {
 	return sb.String(), nil
 }
 
-func tryToAsNumber(obj map[string]interface{}) (float64, bool, error) {
+func tryToAsNumber(obj map[string]any) (float64, bool, error) {
 	if len(obj) != 1 {
 		return 0, false, nil
 	}
@@ -146,12 +146,12 @@ func tryToAsNumber(obj map[string]interface{}) (float64, bool, error) {
 	return 0, false, nil
 }
 
-func normalizeMongoCmd(raw interface{}) (interface{}, error) {
-	obj, ok := raw.(map[string]interface{})
+func normalizeMongoCmd(raw any) (any, error) {
+	obj, ok := raw.(map[string]any)
 	if ok {
 		return normalizeMongoObj(obj)
 	}
-	arr, ok := raw.([]interface{})
+	arr, ok := raw.([]any)
 	if ok {
 		return normalizeMongoArr(arr)
 	}
@@ -159,7 +159,7 @@ func normalizeMongoCmd(raw interface{}) (interface{}, error) {
 	return raw, nil
 }
 
-func normalizeMongoArr(arr []interface{}) (interface{}, error) {
+func normalizeMongoArr(arr []any) (any, error) {
 	var err error
 	for i, v := range arr {
 		arr[i], err = normalizeMongoCmd(v)
@@ -170,7 +170,7 @@ func normalizeMongoArr(arr []interface{}) (interface{}, error) {
 	return arr, nil
 }
 
-func normalizeMongoObj(obj map[string]interface{}) (interface{}, error) {
+func normalizeMongoObj(obj map[string]any) (any, error) {
 	n, ok, err := tryToAsNumber(obj)
 	if err != nil {
 		return nil, err

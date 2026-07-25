@@ -31,7 +31,7 @@ func TestParserPoolNormalWork(t *testing.T) {
 
 	// push tasks to channel
 	var pTasksResults []chan *parseResult[stubPreSaverData]
-	for i := 0; i < tCount; i++ {
+	for i := range tCount {
 		resultch := make(chan *parseResult[stubPreSaverData], 1)
 
 		pTasksResults = append(pTasksResults, resultch)
@@ -71,7 +71,7 @@ func TestParserPoolWorkWithParserErrors(t *testing.T) {
 
 	// push tasks to channel
 	var pTasksResults []chan *parseResult[stubPreSaverData]
-	for i := 0; i < tCount; i++ {
+	for i := range tCount {
 		resultch := make(chan *parseResult[stubPreSaverData], 1)
 
 		pTasksResults = append(pTasksResults, resultch)
@@ -117,7 +117,7 @@ func TestParserPoolAfterCloseTasks(t *testing.T) {
 	const tCount, wCount = 1000, 10
 
 	pTasks := make(chan *parserTask[stubSrcData, stubPreSaverData], tCount)
-	for i := 0; i < tCount; i++ {
+	for i := range tCount {
 		pTasks <- &parserTask[stubSrcData, stubPreSaverData]{
 			srcData: &stubSrcData{num: i},
 			result:  make(chan *parseResult[stubPreSaverData], 1),

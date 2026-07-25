@@ -18,7 +18,7 @@ func TestWrapWithDetails(t *testing.T) {
 	errDetails, ok := ExtractDetailsError(err)
 	require.True(t, ok)
 	require.NotNil(t, errDetails)
-	require.EqualValues(t, errDetails.Component, "Test1")
+	require.EqualValues(t, "Test1", errDetails.Component)
 
 	// fmt.Printf("%+v", err)
 }
@@ -32,13 +32,13 @@ func TestExtractDetailsError(t *testing.T) {
 	errDetails, ok := ExtractDetailsError(err)
 	require.True(t, ok)
 	require.NotNil(t, errDetails)
-	require.EqualValues(t, errDetails.Type, errTypeTest)
-	require.EqualValues(t, errDetails.Component, "Test")
+	require.Equal(t, errTypeTest, errDetails.Type)
+	require.EqualValues(t, "Test", errDetails.Component)
 
 	// fmt.Printf("%+v", err)
 }
 
 func TestWrapWithDetailsErrNil(t *testing.T) {
 	errNil := WrapWithDetails(nil, errTypeTest, "Test")
-	require.Nil(t, errNil)
+	require.NoError(t, errNil)
 }

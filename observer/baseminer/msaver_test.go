@@ -40,7 +40,7 @@ func TestSaverNormalWork(t *testing.T) {
 			ctx, stor, prsv, tasks, 10, nil)
 	}()
 
-	for i := 0; i < countTasks; i++ {
+	for i := range countTasks {
 		str := make(chan *parseResult[stubPreSaverData], 1)
 		st := &saverTask[stubPreSaverData]{
 			result: str,
@@ -61,7 +61,7 @@ func TestSaverNormalWork(t *testing.T) {
 	require.ErrorIs(t, <-runErr, context.Canceled)
 
 	require.Len(t, stor.data, countTasks)
-	for i := 0; i < countTasks; i++ {
+	for i := range countTasks {
 		require.Equal(t, i, stor.data[i].num)
 		require.True(t, strings.HasSuffix(stor.data[i].data1, psSuff))
 	}
@@ -79,7 +79,7 @@ func TestSaverWorkWithErrors(t *testing.T) {
 	}
 
 	tasks := make(chan *saverTask[stubPreSaverData], countTasks)
-	for i := 0; i < countTasks; i++ {
+	for i := range countTasks {
 		str := make(chan *parseResult[stubPreSaverData], 1)
 		st := &saverTask[stubPreSaverData]{
 			result: str,

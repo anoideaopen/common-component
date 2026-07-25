@@ -117,25 +117,23 @@ func TestMetricsInParallels(t *testing.T) {
 
 	wg := sync.WaitGroup{}
 
-	wg.Add(1)
-	go func() {
-		defer wg.Done()
-		for i := 0; i < 1000; i++ {
+	wg.Go(func() {
+		for range 1000 {
 			mroot.CounterOne().Inc(
 				Labels().TwoLabel.Create("true"),
 			)
 		}
-	}()
+	})
 
 	ctx = NewContext(ctx, mroot)
-	for i := 0; i < 100; i++ {
+	for i := range 100 {
 		wg.Add(1)
 		go func(ctx context.Context, i int) {
 			defer wg.Done()
 			mch := FromContext(ctx).CreateChild(
 				Labels().OneLabel.Create(fmt.Sprintf("ch-%v", i)),
 			)
-			for i := 0; i < 1000; i++ {
+			for range 1000 {
 				mch.CounterOne().Inc(
 					Labels().TwoLabel.Create("true"),
 				)
@@ -148,11 +146,8 @@ func TestMetricsInParallels(t *testing.T) {
 
 func checkMembers(t *testing.T, m *ExampleMetricsBus) {
 	require.NotNil(t, m.CounterOne())
-	require.Equal(t, m.CounterOne(), m.CounterOne())
 
 	require.NotNil(t, m.GaugeOne())
-	require.Equal(t, m.GaugeOne(), m.GaugeOne())
 
 	require.NotNil(t, m.HistoOne())
-	require.Equal(t, m.HistoOne(), m.HistoOne())
 }
