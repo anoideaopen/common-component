@@ -71,8 +71,7 @@ func WrapWithDetails(err error, errType ErrType, componentName ComponentName) er
 
 // ExtractDetailsError extracts DetailsError from error
 func ExtractDetailsError(err error) (*DetailsError, bool) {
-	var de *DetailsError
-	if errors.As(err, &de) {
+	if de, ok := errors.AsType[*DetailsError](err); ok {
 		return de, true
 	}
 	return nil, false
